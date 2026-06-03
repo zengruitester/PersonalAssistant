@@ -1,0 +1,161 @@
+# PersonalAssistant Configuration
+
+# 系统基础配置
+system:
+  name: "PersonalAssistant"
+  version: "1.0.0"
+  debug: false
+  log_level: "INFO"
+
+# 性格分析配置
+personality:
+  enabled: true
+  update_frequency: "realtime"  # realtime, daily, weekly
+  sensitivity: 0.8              # 0-1, 越高越容易改变认识
+  
+  # 5大维度
+  dimensions:
+    time_management:
+      enabled: true
+      weight: 0.25
+    work_preference:
+      enabled: true
+      weight: 0.2
+    communication_style:
+      enabled: true
+      weight: 0.2
+    decision_style:
+      enabled: true
+      weight: 0.2
+    output_preference:
+      enabled: true
+      weight: 0.15
+
+# 学习引擎配置
+learning:
+  enabled: true
+  data_sources:
+    - "interaction_history"
+    - "task_execution_history"
+  learning_rate: 0.1
+  memory_size: 1000
+  min_samples: 5  # 最少样本数
+
+# 任务执行配置
+execution:
+  max_parallel_tasks: 3
+  timeout_seconds: 300
+  retry_attempts: 3
+  retry_delay: 5
+  enable_async: true
+
+# 评分配置
+scoring:
+  base_weights:
+    functionality: 0.4      # 功能完成度
+    code_quality: 0.3      # 代码质量
+    efficiency: 0.2        # 执行效率
+    user_satisfaction: 0.1 # 用户满意度
+  
+  # 个性化权重调整
+  personalization:
+    enabled: true
+    perfectionist_boost: 0.15  # 完美主义者加权
+    time_sensitive_boost: 0.1  # 时间敏感者加权
+
+# 文档生成配置
+document_generation:
+  auto_adapt: true
+  
+  # 风格选项
+  styles:
+    - name: "detailed"
+      description: "详细分解"
+      granularity: "fine"
+    - name: "overview"
+      description: "概览"
+      granularity: "coarse"
+  
+  # 语言设置
+  language: "zh_CN"
+  tone_options:
+    - "professional"    # 专业
+    - "friendly"        # 友好
+    - "academic"        # 学术
+    - "casual"          # 随意
+  
+  # 输出格式
+  format_options:
+    - "markdown"
+    - "html"
+    - "plain_text"
+    - "json"
+
+# 优化建议配置
+optimization:
+  enabled: true
+  auto_suggest: true
+  suggestion_threshold: 0.7  # 建议置信度阈值
+  
+  # 优化维度
+  dimensions:
+    - "time_allocation"
+    - "task_priority"
+    - "workflow_efficiency"
+    - "quality_improvement"
+    - "habit_alignment"
+
+# 数据存储配置
+storage:
+  type: "local"  # local, sqlite, postgresql
+  
+  local:
+    base_path: "./data"
+    interaction_history: "interaction_history.jsonl"
+    task_history: "task_history.jsonl"
+    user_profile: "user_profile.json"
+    personality_profile: "personality_profile.json"
+  
+  sqlite:
+    database: "personal_assistant.db"
+    timeout: 30
+
+# LLM配置
+llm:
+  provider: "openai"  # openai, anthropic, ollama
+  
+  openai:
+    model: "gpt-4-turbo"
+    temperature: 0.7
+    max_tokens: 2000
+    api_key: "${OPENAI_API_KEY}"
+  
+  anthropic:
+    model: "claude-3-opus-20240229"
+    temperature: 0.7
+    max_tokens: 2000
+    api_key: "${ANTHROPIC_API_KEY}"
+  
+  ollama:
+    base_url: "http://localhost:11434"
+    model: "llama2"
+
+# 日志配置
+logging:
+  level: "INFO"
+  format: "json"  # json, plain
+  file_path: "./logs/assistant.log"
+  max_file_size: 10485760  # 10MB
+  backup_count: 5
+
+# 缓存配置
+cache:
+  enabled: true
+  ttl: 3600  # seconds
+  max_size: 1000
+
+# 性能配置
+performance:
+  enable_profiling: false
+  batch_processing: true
+  batch_size: 10
